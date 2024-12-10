@@ -65,4 +65,18 @@ public class ShopService {
                     .map(ShopDTO::convert)
                     .collect(Collectors.toList());
     }
+
+    public List<ShopDTO> getShopsByFilter(LocalDateTime dataInicio, LocalDateTime dataFim, Double valorMinimo) {
+        List<Shop> shops = shopRepository.findByDateBetweenAndTotalGreaterThanEqual(dataInicio, dataFim, valorMinimo);
+        return shops.stream()
+                .map(ShopDTO::convert)
+                .collect(Collectors.toList());
+    }
+
+    public List<ShopDTO> getReportByDate(LocalDateTime dataInicio, LocalDateTime dataFim) {
+        List<Shop> shops = shopRepository.findByDateBetween(dataInicio, dataFim);
+        return shops.stream()
+                .map(ShopDTO::convert)
+                .collect(Collectors.toList());
+    }
 }

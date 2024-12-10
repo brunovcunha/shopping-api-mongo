@@ -11,4 +11,6 @@ public interface ShopRepository extends MongoRepository<Shop, String> {
     List<Shop> findByUserIdentifier(String userIdentifier);
     List<Shop> findByDate(LocalDateTime date);
     List<Shop> findByItemsProductIdentifier(String productIdentifier);
+    List<Shop> findByDateBetween(LocalDateTime dataInicio, LocalDateTime dataFim);
+    List<Shop> findByDateBetweenAndTotalGreaterThanEqual(LocalDateTime dataInicio, LocalDateTime dataFim, Double valorMinimo);
 }

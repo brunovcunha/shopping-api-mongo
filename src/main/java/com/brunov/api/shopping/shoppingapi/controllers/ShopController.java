@@ -14,7 +14,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/shop")
+@RequestMapping("/shopping")
 public class ShopController {
     private final ShopService shopService;
 
@@ -61,5 +61,24 @@ public class ShopController {
     public ResponseEntity<List<ShopDTO>> getShopsByProductIdentifier(@PathVariable String productIdentifier) {
         List<ShopDTO> shopDTOs = shopService.getShopsByProductIdentifier(productIdentifier);
         return ResponseEntity.ok(shopDTOs);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<ShopDTO>> getShopsByFilter(
+            @RequestParam("dataInicio") LocalDateTime dataInicio,
+            @RequestParam("dataFim") LocalDateTime dataFim,
+            @RequestParam("valorMinimo") Double valorMinimo) {
+
+        List<ShopDTO> shops = shopService.getShopsByFilter(dataInicio, dataFim, valorMinimo);
+        return ResponseEntity.ok(shops);
+    }
+
+    @GetMapping("/report")
+    public ResponseEntity<List<ShopDTO>> getReportByDate(
+            @RequestParam("dataInicio") LocalDateTime dataInicio,
+            @RequestParam("dataFim") LocalDateTime dataFim) {
+
+        List<ShopDTO> report = shopService.getReportByDate(dataInicio, dataFim);
+        return ResponseEntity.ok(report);
     }
 }
